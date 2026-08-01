@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <LangVersion>12.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <RootNamespace>ChronoWarden</RootNamespace>
+    <AssemblyName>ChronoWarden</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <SLReferences Condition="'$(SL_REFERENCES)' != ''">$(SL_REFERENCES)</SLReferences>
+    <SLReferences Condition="'$(SLReferences)' == ''">$(MSBuildProjectDirectory)\References\Server</SLReferences>
+    <UnityReferences Condition="'$(UNITY_REFERENCES)' != ''">$(UNITY_REFERENCES)</UnityReferences>
+    <UnityReferences Condition="'$(UnityReferences)' == ''">$(MSBuildProjectDirectory)\References\Unity</UnityReferences>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="YamlDotNet" Version="11.0.1" PrivateAssets="all" />
+    <Reference Include="LabApi" HintPath="$(NuGetPackageRoot)northwood.labapi\1.1.7\lib\net48\LabApi.dll" Private="false" />
+    <Reference Include="Assembly-CSharp" HintPath="$(SLReferences)\Assembly-CSharp.dll" Private="false" />
+    <Reference Include="Assembly-CSharp-firstpass" HintPath="$(SLReferences)\Assembly-CSharp-firstpass.dll" Private="false" />
+    <Reference Include="CommandSystem.Core" HintPath="$(SLReferences)\CommandSystem.Core.dll" Private="false" />
+    <Reference Include="Mirror" HintPath="$(SLReferences)\Mirror.dll" Private="false" />
+    <Reference Include="Pooling" HintPath="$(SLReferences)\Pooling.dll" Private="false" />
+    <Reference Include="UnityEngine.CoreModule" HintPath="$(UnityReferences)\UnityEngine.CoreModule.dll" Private="false" />
+  </ItemGroup>
+</Project>
