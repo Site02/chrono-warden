@@ -1,101 +1,101 @@
-# Chrono Warden（时序守望者）
+# Chrono Warden
 
-一个基于 **LabAPI 1.1.7** 开发的 SCP: Secret Laboratory 高可玩性特殊角色插件。
+A highly replayable special role plugin for SCP: Secret Laboratory, built on **LabAPI 1.1.7**.
 
-时序守望者会从 D 级人员中随机产生，拥有独立的能量系统、三种主动技能、击杀成长和满级濒死回溯机制。插件支持通过 Remote Admin 管理面板热重载配置和刷新本局角色，无需重启服务器。
+Chrono Warden spawns randomly from Class-D personnel, featuring an independent energy system, three active abilities, kill-based progression, and a max-level death-reversal mechanic. The plugin supports hot-reloading configuration and refreshing the round's role via the Remote Admin panel without restarting the server.
 
-## 兼容信息
+## Compatibility
 
-| 项目 | 版本 |
+| Item | Version |
 | --- | --- |
-| 插件版本 | 1.0.0 |
+| Plugin Version | 1.0.0 |
 | LabAPI | 1.1.7 |
-| 目标框架 | .NET Framework 4.8 |
-| 测试服务端 | SCP:SL Dedicated Server（本地服务端文件） |
+| Target Framework | .NET Framework 4.8 |
+| Test Server | SCP:SL Dedicated Server (local server files) |
 
-> SCP:SL 或 LabAPI 更新后可能出现 API 不兼容。升级服务器前建议备份插件与配置。
+> API incompatibilities may arise after SCP:SL or LabAPI updates. Back up the plugin and its configuration before upgrading the server.
 
-## 角色玩法
+## Gameplay
 
-### 基础属性
+### Base Attributes
 
-- 回合开始后，从 D 级人员中按配置概率随机抽取。
-- 默认每局最多生成 1 名。
-- 初始最大生命值为 135 HP，初始能量为 50。
-- 能量会自动恢复，击杀敌人可额外获得能量。
-- 每完成 2 次击杀提升一级，最高 3 级。
-- 升级会提高最大生命、能量恢复效率和技能效果。
+- Spawns randomly from Class-D personnel after the round starts, with a configurable probability.
+- At most 1 Warden per round by default.
+- Starts with 135 HP max health and 50 energy.
+- Energy regenerates automatically; kills grant bonus energy.
+- Gains one level for every 2 kills, up to level 3.
+- Leveling up increases max health, energy regeneration rate, and ability effectiveness.
 
-### 操作方式
+### Controls
 
-1. 按 `Alt` 切换当前技能。
-2. 也可在客户端控制台输入 `.cwcycle` 切换技能。
-3. 丢出角色自带的硬币，施放当前技能。
-4. 屏幕右侧 Hint 会显示等级、能量、击杀数和当前技能。
+1. Press `Alt` to cycle through abilities.
+2. You can also use `.cwcycle` in the in-game client console to switch abilities.
+3. Throw the role's special coin to cast the currently selected ability.
+4. The HUD hint on the right side of the screen shows your level, energy, kill count, and current ability.
 
-### 主动技能
+### Active Abilities
 
-#### 相位护盾
+#### Phase Shield
 
-消耗能量获得临时 AHP。升级后消耗降低，护盾量提高，适合突围或吸收 SCP 的爆发伤害。
+Spend energy to gain temporary AHP. Upgraded levels reduce the cost and increase the shield amount, making it useful for breaking through or absorbing burst damage from SCPs.
 
-#### 时滞脉冲
+#### Temporal Pulse
 
-释放范围脉冲：
+Release a radial pulse that:
 
-- 治疗范围内的人类玩家。
-- 伤害范围内的 SCP。
-- 升级后治疗量和伤害提高。
+- Heals human players within range.
+- Damages SCPs within range.
+- Increased healing and damage at higher levels.
 
-#### 时间回溯
+#### Time Rewind
 
-返回约 8 秒前的位置和生命值，可用于撤销错误走位、逃离追击或恢复战斗状态。
+Return to your position and health from roughly 8 seconds ago, useful for undoing mispositioning, escaping pursuers, or restoring combat status.
 
-### 满级被动：拒绝死亡
+### Max-Level Passive: Refuse Death
 
-达到 3 级并拥有 100 能量后，首次死亡会自动回到过去的状态。本局仅能触发一次，触发后清空能量。
+Upon reaching level 3 with 100 energy, your first death automatically reverts you to a past state. This can only trigger once per round, and it consumes all energy upon triggering.
 
-## Remote Admin 管理命令
+## Remote Admin Commands
 
-命令需要 `Players Management` 权限。
+Commands require the `Players Management` permission.
 
-| 命令 | 作用 |
+| Command | Effect |
 | --- | --- |
-| `cw reload` | 热重载配置，不重启服务器 |
-| `cw refresh` | 清空角色运行状态，并按当前配置重新抽取 |
-| `cw give <玩家ID>` | 将指定 D 级人员设为时序守望者 |
-| `cw remove <玩家ID>` | 移除指定玩家的特殊角色 |
-| `cw list` | 查看当前角色、等级、能量、击杀和技能 |
+| `cw reload` | Hot-reload configuration without restarting the server |
+| `cw refresh` | Clear role runtime state and respawn the role according to the current configuration |
+| `cw give <PlayerID>` | Set the specified Class-D as Chrono Warden |
+| `cw remove <PlayerID>` | Remove the special role from the specified player |
+| `cw list` | View current role, level, energy, kills, and ability |
 
-完整命令名 `chronowarden` 与别名 `cw` 均可使用。
+Both the full command name `chronowarden` and the alias `cw` are available.
 
-## 安装
+## Installation
 
-1. 确保服务器已正确安装并启用 LabAPI 1.1.7。
-2. 从 Gitee Release 下载最新的 `ChronoWarden-v1.0.0.zip`。
-3. 解压并将 `ChronoWarden.dll` 放入 LabAPI 插件目录：
-   - 全局插件：`%AppData%\SCP Secret Laboratory\LabAPI\plugins\global`
-   - 单端口插件：`%AppData%\SCP Secret Laboratory\LabAPI\plugins\<服务器端口>`
-4. 如果服务器环境缺少 `YamlDotNet.dll`，将发布包中的该文件放入 LabAPI 依赖目录；通常 LabAPI 已自带此依赖。
-5. 启动服务器。首次加载后 LabAPI 会生成插件配置文件。
-6. 在服务端日志中确认出现 `Chrono Warden v1.0.0 已启用`。
+1. Make sure LabAPI 1.1.7 is properly installed and enabled on the server.
+2. Download the latest `ChronoWarden-v1.0.0.zip` from the Gitee Release page.
+3. Extract and place `ChronoWarden.dll` into the LabAPI plugin directory:
+   - Global plugins: `%AppData%\SCP Secret Laboratory\LabAPI\plugins\global`
+   - Single-port plugins: `%AppData%\SCP Secret Laboratory\LabAPI\plugins\<server port>`
+4. If the server environment lacks `YamlDotNet.dll`, place the file from the release package into the LabAPI dependencies directory; LabAPI usually bundles this dependency already.
+5. Start the server. LabAPI will generate the plugin configuration file on first load.
+6. Confirm that `Chrono Warden v1.0.0 enabled` appears in the server logs.
 
-## 配置
+## Configuration
 
-配置文件支持以下主要选项：
+The configuration file supports the following main options:
 
-- 插件启用状态、每局角色上限和生成概率。
-- 角色最大生命值和能量恢复速度。
-- 击杀奖励、升级所需击杀数。
-- 三种技能的消耗、强度、范围、回溯时间与冷却。
-- 满级濒死回溯开关。
-- 出生广播时间与调试日志开关。
+- Plugin enabled status, per-round role limit, and spawn probability.
+- Role max health and energy regeneration rate.
+- Kill rewards and number of kills required to level up.
+- Cost, power, range, rewind duration, and cooldowns for the three abilities.
+- Max-level death-reversal toggle.
+- Spawn broadcast duration and debug log toggle.
 
-修改配置后，在 Remote Admin 执行 `cw reload` 即可立即应用。执行 `cw refresh` 可按新配置重新抽取本局角色。
+After modifying the configuration, run `cw reload` in Remote Admin to apply it immediately. Run `cw refresh` to respawn the round's role under the new configuration.
 
-## 从源码构建
+## Building from Source
 
-需要安装 .NET SDK，并准备 SCP:SL Dedicated Server 的托管程序集。
+You need the .NET SDK and the managed assemblies of an SCP:SL Dedicated Server.
 
 ```powershell
 $env:SL_REFERENCES = "C:\Program Files (x86)\Steam\steamapps\common\SCP Secret Laboratory Dedicated Server\SCPSL_Data\Managed"
@@ -104,35 +104,35 @@ dotnet restore .\ChronoWarden\ChronoWarden.csproj
 dotnet build .\ChronoWarden\ChronoWarden.csproj -c Release
 ```
 
-编译结果位于：
+The compiled output is located at:
 
 ```text
 ChronoWarden\bin\Release\net48\ChronoWarden.dll
 ```
 
-## 常见问题
+## FAQ
 
-### 丢硬币没有施放技能
+### Throwing the coin does not cast an ability
 
-确认玩家确实是时序守望者、丢出的是角色硬币、能量足够且技能不在冷却中。
+Verify that the player is actually a Chrono Warden, threw the role's coin, has enough energy, and the ability is not on cooldown.
 
-### `cw` 命令提示权限不足
+### The `cw` command reports insufficient permissions
 
-为管理员角色添加 `Players Management` 权限。
+Add the `Players Management` permission to the admin role.
 
-### 修改配置后没有重新抽取角色
+### No role respawn after modifying the configuration
 
-`cw reload` 只重新读取配置并更新现有角色数值；需要重新抽取时再执行 `cw refresh`。
+`cw reload` only re-reads the configuration and updates existing role values; run `cw refresh` when you need a fresh respawn.
 
-### 更新服务器后插件无法加载
+### Plugin fails to load after updating the server
 
-检查服务器 LabAPI 版本是否仍为 1.1.7 兼容版本，并查看服务端启动日志中的程序集或 API 错误。
+Check whether the server's LabAPI version is still 1.1.7-compatible and inspect the server startup logs for assembly or API errors.
 
-## 源码结构
+## Source Structure
 
-- `ChronoWardenPlugin.cs`：插件入口、生命周期和热重载。
-- `WardenManager.cs`：角色生成、能量循环、技能与成长逻辑。
-- `WardenState.cs`：玩家运行状态和时间快照。
-- `Config.cs`：可配置参数。
-- `Commands/`：RA 管理命令和玩家技能切换命令。
+- `ChronoWardenPlugin.cs`: plugin entry point, lifecycle, and hot reload.
+- `WardenManager.cs`: role spawning, energy loop, abilities, and progression logic.
+- `WardenState.cs`: per-player runtime state and time snapshots.
+- `Config.cs`: configurable parameters.
+- `Commands/`: Remote Admin commands and the player ability-switching command.
 
