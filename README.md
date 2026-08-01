@@ -136,6 +136,3 @@ ChronoWarden\bin\Release\net48\ChronoWarden.dll
 - `Config.cs`：可配置参数。
 - `Commands/`：RA 管理命令和玩家技能切换命令。
 
-## 许可证
-
-当前仓库未附加开源许可证。未经作者明确许可，不代表允许复制、修改或重新分发。
